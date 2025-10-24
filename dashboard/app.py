@@ -30,22 +30,19 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "../data/exchange_rates.db")
 
 @st.cache_data
 def load_data():
-    import os
+    # If DB doesn't exist, return empty DataFrame with expected columns
     if not os.path.exists(DB_PATH):
         st.warning(
             "Database not found! The ETL pipeline hasn't run yet. "
             "Click the '🔄 Refresh Data' button to fetch the first dataset."
         )
-        # Return empty DataFrame with the expected columns
-        import pandas as pd
         return pd.DataFrame(columns=["currency", "rate", "base", "date", "fetched_at"])
 
-    import sqlite3
+    # If DB exists, connect and fetch data
     conn = sqlite3.connect(DB_PATH)
     df = pd.read_sql("SELECT * FROM exchange_rates", conn)
     conn.close()
     return df
-
 
 df = load_data()
 
