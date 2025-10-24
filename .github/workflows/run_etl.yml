@@ -1,8 +1,8 @@
-name: Run ETL every 6 hours
+name: Run ETL every morning
 
 on:
   schedule:
-    - cron: "0 */6 * * *"  # every 6 hours
+    - cron: "0 9 * * *"  # every day at 09:00 UTC
   workflow_dispatch:       # allow manual trigger
 
 jobs:
@@ -32,4 +32,4 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/exchange_rates.db
           git commit -m "Auto-update exchange rates [skip ci]" || echo "No changes"
-          git push https://github.com/YOUR_GITHUB_USERNAME/RateFlow.git HEAD:main
+          git push https://github.com/inesruizblach/RateFlow.git HEAD:main

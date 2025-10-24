@@ -99,7 +99,7 @@ st.altair_chart(chart, use_container_width=True)
 
 # --- TIMESTAMP ---
 last_updated = df["fetched_at"].max()
-st.caption(f"Last updated: {last_updated}")
+st.caption(f"Last updated: {last_updated} (automatically updated every morning)")
 
 # --- TRENDS OVER TIME ---
 st.markdown("---")
