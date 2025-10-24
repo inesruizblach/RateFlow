@@ -35,7 +35,14 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin main --rebase 
+
+          # Stage and commit first
           git add data/exchange_rates.db
           git commit -m "Auto-update exchange rates [skip ci]" || echo "No changes to commit"
+
+          # Then safely pull remote changes (if any)
+          git fetch origin main
+          git pull origin main --rebase --autostash || echo "No rebase needed"
+
+          # Push to main
           git push origin main
