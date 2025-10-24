@@ -1,3 +1,4 @@
+import os
 import subprocess
 import streamlit as st
 import pandas as pd
@@ -25,7 +26,7 @@ if st.button("🔄 Refresh Data"):
         st.rerun()
 
 # --- LOAD DATA ---
-DB_PATH = "../data/exchange_rates.db"
+DB_PATH = os.path.join(os.path.dirname(__file__), "../data/exchange_rates.db")
 
 @st.cache_data
 def load_data():
