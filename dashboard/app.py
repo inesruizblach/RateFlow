@@ -21,7 +21,7 @@ if st.button("🔄 Refresh Data"):
         subprocess.run(["python", "../etl/load.py"])
         time.sleep(1)
         st.success("Data refreshed successfully!")
-        st.cache_data.clear() 
+        st.cache_data.clear()
         st.rerun()
 
 # --- LOAD DATA ---
@@ -29,10 +29,22 @@ DB_PATH = "../data/exchange_rates.db"
 
 @st.cache_data
 def load_data():
+    import os
+    if not os.path.exists(DB_PATH):
+        st.warning(
+            "Database not found! The ETL pipeline hasn't run yet. "
+            "Click the '🔄 Refresh Data' button to fetch the first dataset."
+        )
+        # Return empty DataFrame with the expected columns
+        import pandas as pd
+        return pd.DataFrame(columns=["currency", "rate", "base", "date", "fetched_at"])
+
+    import sqlite3
     conn = sqlite3.connect(DB_PATH)
     df = pd.read_sql("SELECT * FROM exchange_rates", conn)
     conn.close()
     return df
+
 
 df = load_data()
 
