@@ -15,18 +15,22 @@ It automatically fetches live currency exchange rates from free APIs, stores the
 - **SQLAlchemy + SQLite** – local database
 - **Streamlit** – dashboard and visualization
 - **Requests** – API data fetching
+- **Altair** – Interactive data visualization  
 
 ## 📦 Project Structure
 
-rateflow/
-│
-├── etl/              # Data extraction and loading scripts
-├── dashboard/        # Streamlit app
-├── data/             # Local database or CSV storage
-├── .env              # Configs and environment variables
+RateFlow/
+├── dashboard/
+│   └── app.py
+├── etl/
+│   ├── extract.py
+│   ├── load.py
+│   └── scheduler.py
+├── data/
+│   └── exchange_rates.db
 ├── requirements.txt
+├── .gitignore
 └── README.md
-
 
 ## 🧭 Getting Started
 
